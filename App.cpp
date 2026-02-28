@@ -21,16 +21,41 @@ void App::run()
 void App::draw()
 {
 	m_window.clear();
-	for (int i = 0; i < m_nodes.size(); i++)
+	for (unsigned i = 0; i < m_nodes.size(); i++)
 	{
-		for (int j = 0; j < m_nodes[i].size(); j++)
+		for (unsigned j = 0; j < m_nodes[i].size(); j++)
 		{
-			sf::CircleShape node(15);
-			node.setPosition({ 10.f + i*50, 20.f + j*40 });
+			Node node = m_nodes[i][j];
+			sf::CircleShape n(node.getSize());
+			n.setPosition(node.getPosition());
+			n.setFillColor(sf::Color(150, 50, 250));
+
+			// set a 10-pixel wide orange outline
+			n.setOutlineThickness(2.f);
+			n.setOutlineColor(sf::Color(250, 150, 100));
+
+			if (i > 0)
+			{
+				// need to draw edges here
+				for (unsigned k = 0; k < m_nodes[i - 1].size(); k++)
+				{
+					sf::Vertex line[] =
+					{
+						sf::Vertex({ 10.f + (i - 1) * 50 + 15, 20.f + j * 40 + 15 }),
+						sf::Vertex({ 10.f + i * 50, 20.f + j * 40 })
+					};
+					m_window.draw(line, 2, sf::Lines);
+				}
+			}
 			m_window.draw(node);
 		}
 	}
 	m_window.display();
+}
+
+void App::addLayer(std::vector<Node>& layer)
+{
+	m_nodes.push_back(layer);
 }
 
 void App::addNode(Node& node)

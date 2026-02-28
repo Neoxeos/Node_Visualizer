@@ -1,12 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <SFML/Graphics.hpp>
-
-struct Node {
-	int value;
-	int weights;
-};
+#include "Node.h"
 
 class App
 {
@@ -19,5 +14,6 @@ public:
 	App();
 	void draw();
 	void addNode(Node& node);
+	void addLayer(std::vector<Node>& layer);
 	void run();
 };

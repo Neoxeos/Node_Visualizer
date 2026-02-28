@@ -10,11 +10,15 @@ int main()
 {
 	App app;
 
-	for (unsigned i = 0; i < 30; ++i)
-	{
-		Node newNode{ i, i * 2 };
-		app.addNode(newNode);
-	}
+	Node n({ 1, 2 });
+	Node n2({ 2, 3 });
+
+	app.addNode(n);
+	app.addNode(n2);
+
+	Node n3({ 3, 4 });
+	std::vector<Node> layer2{ n3 };
+	app.addLayer({layer2});
 
 	app.run();
 }
